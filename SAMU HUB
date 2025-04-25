@@ -1,0 +1,80 @@
+
+-- SAMU Hub - v1
+-- Interface estilo Redz com botão On/Off sempre visível
+-- Feito por Katakure
+
+local SAMU_HUB = {}
+
+-- Serviços principais
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+
+-- Criar GUI
+local ScreenGui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+ScreenGui.Name = "SAMU_HUB"
+ScreenGui.ResetOnSpawn = false
+
+-- Botão principal (On/Off)
+local ToggleButton = Instance.new("TextButton", ScreenGui)
+ToggleButton.Size = UDim2.new(0, 100, 0, 30)
+ToggleButton.Position = UDim2.new(0, 10, 0.5, -15)
+ToggleButton.Text = "SAMU Hub"
+ToggleButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+ToggleButton.Font = Enum.Font.SourceSansBold
+ToggleButton.TextSize = 20
+ToggleButton.Active = true
+ToggleButton.Draggable = true
+
+-- Frame do Menu Lateral
+local SideMenu = Instance.new("Frame", ScreenGui)
+SideMenu.Size = UDim2.new(0, 250, 0, 400)
+SideMenu.Position = UDim2.new(0, 120, 0.5, -200)
+SideMenu.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+SideMenu.Visible = false
+
+local UICorner = Instance.new("UICorner", SideMenu)
+UICorner.CornerRadius = UDim.new(0, 10)
+
+-- Lista de funcionalidades
+local functionsList = {
+    "Auto Haki",
+    "Auto Missão V4",
+    "Auto Farmar Mastery",
+    "Auto Pegar Bagas",
+    "Auto Fabricar Cores de Haki",
+    "Andar Sobre as Águas",
+    "Mostrar Fruta e Nome",
+    "Roletar Fruta",
+    "Chance de Fruta Mítica",
+    "Farmar Piratas do Mar",
+    "Farmar Boss",
+    "Farmar Fábrica",
+    "Teleportar Seas",
+    "Pegar Frutas da Loja",
+    "Resgatar Códigos"
+}
+
+-- Criar toggles para cada função
+for i, funcName in ipairs(functionsList) do
+    local Toggle = Instance.new("TextButton", SideMenu)
+    Toggle.Size = UDim2.new(1, -20, 0, 25)
+    Toggle.Position = UDim2.new(0, 10, 0, (i - 1) * 30 + 10)
+    Toggle.Text = funcName
+    Toggle.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Toggle.Font = Enum.Font.SourceSans
+    Toggle.TextSize = 16
+    Toggle.Name = funcName:gsub(" ", "_")
+    -- Código de ativação placeholder
+    Toggle.MouseButton1Click:Connect(function()
+        print(funcName .. " ativado!")
+    end)
+end
+
+-- Mostrar/Ocultar menu
+ToggleButton.MouseButton1Click:Connect(function()
+    SideMenu.Visible = not SideMenu.Visible
+end)
